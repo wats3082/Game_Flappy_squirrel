@@ -14,6 +14,8 @@ FLAP_STRENGTH = -10
 PIPE_WIDTH = 20
 PIPE_GAP = 350
 FPS = 60
+SPEED_INCREMENT = 1.05  # Factor to increase speed of pipes as the score increases
+PIPE_FREQUENCY_DECREASE = 0.95  # Factor to decrease time between pipe spawns
 
 # Colors
 WHITE = (255, 255, 255)
@@ -50,9 +52,10 @@ class Pipe:
         self.x = SCREEN_WIDTH
         self.height = random.randint(100, 400)
         self.passed = False
+        self.speed = 5  # Starting speed of the pipes
 
     def update(self):
-        self.x -= 5
+        self.x -= self.speed
 
     def draw(self, screen):
         # Draw upper pipe
@@ -69,6 +72,8 @@ def main():
     pipes = []
     score = 0
     frame_count = 0
+    pipe_frequency = 90  # Frequency of pipe spawn (frames)
+    pipe_gap = PIPE_GAP  # The gap between the pipes
     running = True
 
     while running:
@@ -85,10 +90,11 @@ def main():
         cat.update()
         screen.blit(cat_image, (cat.x, cat.y))
 
-        # Update pipes
-        if frame_count % 90 == 0:
+        # Spawn pipes at decreasing intervals
+        if frame_count % pipe_frequency == 0:
             pipes.append(Pipe())
 
+        # Update and draw pipes
         for pipe in pipes:
             pipe.update()
             pipe.draw(screen)
@@ -108,8 +114,21 @@ def main():
         # Check for collisions
         for pipe in pipes:
             if (cat.x + CAT_WIDTH > pipe.x and cat.x < pipe.x + PIPE_WIDTH and
-                    (cat.y < pipe.height or cat.y + CAT_HEIGHT > pipe.height + PIPE_GAP)):
+                    (cat.y < pipe.height or cat.y + CAT_HEIGHT > pipe.height + pipe_gap)):
                 running = False  # End game on collision
+
+        # Increase difficulty over time
+        if score > 0 and score % 5 == 0:  # Every 5 points
+            # Speed up pipes
+            for pipe in pipes:
+                pipe.speed *= SPEED_INCREMENT
+            # Decrease pipe spawn frequency
+            pipe_frequency = max(30, int(pipe_frequency * PIPE_FREQUENCY_DECREASE))
+            # Make the pipe gap smaller
+            pipe_gap = max(100, pipe_gap - 10)
+            # Make gravity stronger
+            global GRAVITY
+            GRAVITY += 0.1
 
         pygame.display.flip()
         frame_count += 1
@@ -120,4 +139,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
