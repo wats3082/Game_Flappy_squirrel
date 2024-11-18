@@ -1,33 +1,6 @@
 # Game_Flappy_squirrel
 
-To enhance the Python game you've shared, we can implement several improvements to make the gameplay more engaging and dynamic. Here's a list of suggestions followed by a refined version of the code with some added features:
 
-### Suggested Enhancements:
-1. **Dynamic Difficulty Scaling:**
-   - Gradually increase the speed of the pipes, coins, and gems as the player's score increases, making the game more challenging over time.
-   - Adjust the pipe frequency to spawn more frequently as the score increases.
-
-2. **Sound Effects and Music:**
-   - Add sound effects for flapping, collecting coins/gems, and hitting pipes.
-   - Add background music to create a more immersive atmosphere.
-
-3. **More Visual Effects:**
-   - Add particle effects when coins or gems are collected (like a sparkle effect).
-   - Add animations or visual effects for combos (e.g., text animation or scaling effects).
-
-4. **Enhanced Combo System:**
-   - Make the combo system more noticeable, e.g., by displaying combo animations or effects when the player reaches higher combo streaks.
-
-5. **New Power-ups:**
-   - Introduce power-ups such as shields, score multipliers, or speed boosts that the player can collect.
-
-6. **Pause Menu:**
-   - Implement a pause menu to allow the player to pause the game and resume.
-
-7. **Leaderboards:**
-   - Add a system for tracking high scores, either locally or in a file.
-
-```
 
 ### What's Improved:
 1. **Background Music and Sound Effects:** 
